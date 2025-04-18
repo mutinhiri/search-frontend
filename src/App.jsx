@@ -1,12 +1,13 @@
 import { useState } from 'react'
 // import './App.css'
+import SearchBar from './SearchBar'
+import Header from './Header'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <p className='bg-red-800'>serach</p>
+      <Header/>
     </>
   )
 }
