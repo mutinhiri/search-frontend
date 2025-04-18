@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
+import Analytics from "./Analytics";
 
 const Header = () => {
     const [page, setPage] = useState("home");
+    const [searchData, setSearchData] = useState({});
+
+    useEffect(() => {
+        fetch('http://localhost:3000/analytics')
+        .then((res) => res.json())
+        .then((data) => setSearchData(data))
+        .catch((err) => console.error("Error fetching search data:", err));
+    }, []);
   
     return (
       <div className="min-h-screen bg-gray-500">
-        {/* Header */}
         <header className="bg-white shadow p-4">
           <nav className="flex justify-between items-center max-w-5xl mx-auto">
             <h1 className="text-xl font-bold text-blue-600">Search</h1>
@@ -34,11 +42,9 @@ const Header = () => {
             </div>
           </nav>
         </header>
-  
-        {/* Page Content */}
         <main className="mx-auto">
           {page === "home" && <div><SearchBar/></div>}
-          {page === "analytics" && <div>hello</div>}
+          {page === "analytics" && <div><Analytics results={searchData}/></div>}
         </main>
       </div>
     );
